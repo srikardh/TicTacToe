@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #0f0f0f;
+    --surface: #1a1a1a;
+    --border: #2e2e2e;
+    --x-color: #e8f97d;
+    --o-color: #f97d7d;
+    --text: #f0f0f0;
+    --muted: #666;
+    --cell-size: 120px;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Subtle grid background */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    padding: 48px 40px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: 0.1em;
+    color: var(--text);
+    line-height: 1;
+}
+
+#player-turn {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    height: 1.2em;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, var(--cell-size));
+    grid-template-rows: repeat(3, var(--cell-size));
+    gap: 0;
+    border: 1px solid var(--border);
+}
+
+#board button {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+    position: relative;
+}
+
+#board button:hover:not(:disabled) {
+    background: #1e1e1e;
+}
+
+#board button:active {
+    transform: scale(0.95);
+}
+
+/* Color X and O differently */
+#board button:not(:empty) {
+    cursor: default;
+}
+
+/* We'll use a data trick — JS will set textContent so we target by content */
+#board button {
+    color: var(--text);
+}
+
+/* Highlight X and O with color via animation */
+@keyframes popIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#board button:not(:empty) span,
+#board button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#message {
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--x-color);
+    height: 1.2em;
+    font-weight: 500;
+}
+
+#restart-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 10px 28px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+#restart-btn:hover {
+    color: var(--text);
+    border-color: #555;
+    background: #1e1e1e;
+}
+
+@media (max-width: 480px) {
+    :root {
+        --cell-size: 90px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+}
