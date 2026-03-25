@@ -20,9 +20,14 @@ const gameBoard = (() => {
 })();
 
 const game = (() => {
-    const player1 = createPlayer('player1', 'X');
-    const player2 = createPlayer('player2', 'O');
-    let currentPlayer = player1;
+
+    let player1, player2, currentPlayer;
+
+    const startGame = (name1, name2) => {
+        player1 = createPlayer(name1, "X");
+        player2 = createPlayer(name2, "O");
+        currentPlayer = player1;
+    }
 
     const switchTurn = () => {
         if (currentPlayer === player1) {
@@ -71,7 +76,7 @@ const game = (() => {
         };
     };
 
-    return { getCurrentPlayer, playRound };
+    return { getCurrentPlayer, playRound, startGame };
 })();
 
 
@@ -80,6 +85,7 @@ const gameController = (() => {
     const boardDiv = document.getElementById("board");
     const playerTurnDiv = document.getElementById("player-turn");
     const messageDiv = document.getElementById("message");
+    const startbtn = document.getElementById("startbtn");
 
     const renderBoard = () => {
         const buttons = boardDiv.querySelectorAll("button");
@@ -88,7 +94,12 @@ const gameController = (() => {
             button.textContent = currentBoard[button.dataset.index];
         });
         const currentPlayer = game.getCurrentPlayer();
-        playerTurnDiv.textContent = `${currentPlayer.name}'s turn to play`;
+        //playerTurnDiv.textContent = `${currentPlayer.name}'s turn to play`;
+        if (currentPlayer) {
+            playerTurnDiv.textContent = `${currentPlayer.name}'s turn to play`;
+        } else {
+            playerTurnDiv.textContent = "";
+        }
     }
 
     for (let i = 0; i < 9; i++) {
@@ -106,6 +117,15 @@ const gameController = (() => {
         });
         boardDiv.appendChild(button);
     };
+
+    startbtn.addEventListener("click", () => {
+        document.getElementById("playerNameInput").style.display = "none";
+        document.getElementById("GameBoard").style.display = "block";
+        const name1 = document.getElementById("player1").value;
+        const name2 = document.getElementById("player2").value;
+        game.startGame(name1, name2);
+        renderBoard();
+    })
 
     const restartBtn = document.getElementById("restart-btn");
     restartBtn.addEventListener("click", () => {

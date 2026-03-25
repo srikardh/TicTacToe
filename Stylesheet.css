@@ -170,3 +170,54 @@ h1 {
         font-size: 2.5rem;
     }
 }
+
+#GameBoard {
+    display: none;
+}
+
+#playerNameInput input {
+    width: 260px;
+    padding: 12px 14px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background: #0f1115;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+/* Placeholder color */
+#playerNameInput input::placeholder {
+    color: #777;
+}
+
+/* Focus effect */
+#playerNameInput input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+}
+
+/* Start button */
+#startbtn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#startbtn:hover {
+    background: #45a049;
+    transform: translateY(-1px);
+}
+
+#startbtn:active {
+    transform: scale(0.98);
+}
