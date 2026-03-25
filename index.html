@@ -7,11 +7,21 @@
 
 <body>
     <div class="container">
-        <h1>Tic Tac Toe</h1>
-        <div id="player-turn">Player1's turn</div>
-        <div id="board"></div>
-        <div id="message"></div>
-        <button id="restart-btn">Restart Game</button>
+
+        <div id="playerNameInput">
+            <input type="text" id="player1" placeholder="Enter Player 1 name">
+            <input type="text" id="player2" placeholder="Enter Player 2 name">
+            <button id="startbtn">Start Game</button>
+        </div>
+
+        <div id="GameBoard">
+            <h1>Tic Tac Toe</h1>
+            <div id="player-turn">Player1's turn</div>
+            <div id="board"></div>
+            <div id="message"></div>
+            <button id="restart-btn">Restart Game</button>
+        </div>
+
     </div>
     <script src="tictactoe.js"></script>
 </body>
