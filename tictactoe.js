@@ -76,7 +76,12 @@ const game = (() => {
         };
     };
 
-    return { getCurrentPlayer, playRound, startGame };
+    const resetGame = () => {
+        currentPlayer = player1;
+    };
+
+
+    return { getCurrentPlayer, playRound, startGame, resetGame };
 })();
 
 
@@ -86,6 +91,9 @@ const gameController = (() => {
     const playerTurnDiv = document.getElementById("player-turn");
     const messageDiv = document.getElementById("message");
     const startbtn = document.getElementById("startbtn");
+    const winnerDialog = document.getElementById("winner-dialog");
+    const winnerMessage = document.getElementById("Winner-message");
+    const playAgainBtn = document.getElementById("play-again-btn");
 
     const renderBoard = () => {
         const buttons = boardDiv.querySelectorAll("button");
@@ -109,14 +117,27 @@ const gameController = (() => {
             const result = game.playRound(i);
             renderBoard();
             if (result.status === "Winner") {
-                messageDiv.textContent = `${result.player} wins`;
+                //messageDiv.textContent = `${result.player} wins`;
+                showWinner(`${result.player} wins!`)
             };
             if (result.status === "Draw") {
-                messageDiv.textContent = "It's a Draw";
+                //messageDiv.textContent = "It's a Draw";
+                showWinner("It's a Draw!");
             }
         });
         boardDiv.appendChild(button);
     };
+
+    const showWinner = (message) => {
+        winnerMessage.textContent = message;
+        winnerDialog.showModal();
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#e8f97d', '#f97d7d', '#ffffff']
+        });
+    }
 
     startbtn.addEventListener("click", () => {
         document.getElementById("playerNameInput").style.display = "none";
@@ -125,6 +146,15 @@ const gameController = (() => {
         const name2 = document.getElementById("player2").value;
         game.startGame(name1, name2);
         renderBoard();
+    })
+
+    playAgainBtn.addEventListener("click", () => {
+        winnerDialog.close();
+        gameBoard.resetBoard();
+        game.resetGame();
+        renderBoard();
+        messageDiv.textContent = "";
+
     })
 
     const restartBtn = document.getElementById("restart-btn");

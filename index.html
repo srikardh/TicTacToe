@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="Stylesheet.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
@@ -21,6 +22,11 @@
             <div id="message"></div>
             <button id="restart-btn">Restart Game</button>
         </div>
+
+        <dialog id="winner-dialog">
+            <h2 id="Winner-message"></h2>
+            <button id="play-again-btn">Play Again</button>
+        </dialog>
 
     </div>
     <script src="tictactoe.js"></script>
